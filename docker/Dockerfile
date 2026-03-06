@@ -41,7 +41,7 @@ RUN git clone --depth 1 --single-branch --branch master \
 
 RUN cd /opt/src/dijitso && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/instant && python3 -m pip install --no-cache-dir --no-deps .
-RUN cd /opt/src/ufl-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
+RUN cd /opt/src/ufl-test && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/fiat && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/ffc-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
 
