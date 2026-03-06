@@ -1,0 +1,5 @@
+{
+  "name": "mm-cut-ds",
+  "image": "ghcr.io/augustjohansson/mm-cut-ds-gh:latest",
+  "workspaceFolder": "/work"
+}
