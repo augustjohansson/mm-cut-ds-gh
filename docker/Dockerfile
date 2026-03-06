@@ -81,13 +81,8 @@ txt = re.sub(r'pytest\.mark\.xfail\(([A-Za-z_][A-Za-z0-9_]*)\)', r'pytest.param(
 p.write_text(txt)"
 
 # 3) test_fiat.py: replace xfail_impl("string") with pytest.param("string", marks=xfail_impl)
-#    Handles both single-line and multi-line implicit string concatenation calls.
-RUN cd /opt/src/fiat/test/unit && python3 -c "\
-import re, pathlib; \
-p = pathlib.Path('test_fiat.py'); \
-txt = p.read_text(); \
-txt = re.sub(r'xfail_impl\(([\"\x27].*?[\"\x27])\)', r'pytest.param(\1, marks=xfail_impl)', txt, flags=re.DOTALL); \
-p.write_text(txt)"
+COPY docker/patches/fix_fiat_xfail.py /tmp/fix_fiat_xfail.py
+RUN python3 /tmp/fix_fiat_xfail.py /opt/src/fiat/test/unit/test_fiat.py && rm /tmp/fix_fiat_xfail.py
 
 # 4) test_discontinuous_taylor.py and test_discontinuous_pc.py: replace np.float() with float()
 RUN cd /opt/src/fiat/test/unit && \
