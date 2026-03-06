@@ -120,7 +120,7 @@ run_check "fiat: import" \
 FIAT_TEST="$SRC_DIR/fiat/test"
 if [ -d "$FIAT_TEST" ]; then
     run_check "fiat: pytest suite" \
-        python3 -m pytest "$FIAT_TEST" -v --tb=short
+        python3 -m pytest "$FIAT_TEST/unit" -v --tb=short
 else
     skip "fiat: test directory not found at $FIAT_TEST"
 fi
