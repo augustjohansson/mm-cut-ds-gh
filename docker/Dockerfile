@@ -24,21 +24,20 @@ RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1"
 
 WORKDIR /opt/src
 
-RUN git clone --depth 1 --single-branch --branch august/testbranch \
+RUN git clone --depth 1 --single-branch --branch august/mergebb \
     https://github.com/augustjohansson/dolfin-cut-ds.git
-RUN git clone --depth 1 --single-branch --branch master \
+RUN git clone --depth 1 --single-branch --branch august/mergebb \
     https://github.com/augustjohansson/ffc-cut-ds.git
-RUN git clone --depth 1 --single-branch --branch 2019.1.0 \
-    https://github.com/augustjohansson/ufl-cut-ds.git
+RUN git clone --depth 1 --single-branch --branch august/merge-legacy \
+    https://github.com/augustjohansson/ufl-test.git
 RUN git clone --depth 1 --single-branch --branch master \
-    https://bitbucket.org/fenics-project/dijitso.git
+    https://github.com/augustjohansson/dijitso.git
 RUN git clone --depth 1 --single-branch --branch master \
-    https://bitbucket.org/fenics-project/instant.git
+    https://github.com/augustjohansson/instant.git
 RUN git clone --depth 1 --single-branch --branch master \
-    https://bitbucket.org/fenics-project/fiat.git
-# RUN rm -rf /opt/src/mshr && \
-#     git clone --depth 1 --single-branch --branch master \
-#     https://bitbucket.org/fenics-project/mshr.git
+    https://github.com/augustjohansson/fiat.git
+RUN git clone --depth 1 --single-branch --branch master \
+    https://github.com/augustjohansson/mshr.git
 
 RUN cd /opt/src/dijitso && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/instant && python3 -m pip install --no-cache-dir --no-deps .
