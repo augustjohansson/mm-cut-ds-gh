@@ -1,0 +1,6 @@
+setup.py
+test7_ext_wrap.cxx
+test7_ext.egg-info/PKG-INFO
+test7_ext.egg-info/SOURCES.txt
+test7_ext.egg-info/dependency_links.txt
+test7_ext.egg-info/top_level.txt

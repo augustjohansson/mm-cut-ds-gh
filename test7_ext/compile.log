@@ -1,0 +1,54 @@
+In file included from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/ndarraytypes.h:1929,
+                 from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/arrayobject.h:5,
+                 from test7_ext_wrap.cxx:2800:
+/usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+   17 | #warning "Using deprecated NumPy API, disable it with " \
+      |  ^~~~~~~
+test7_ext_wrap.cxx: In function ‘PyObject* _wrap_func(PyObject*, PyObject*)’:
+test7_ext_wrap.cxx:3347:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 3347 |   if (!SWIG_Python_UnpackTuple(args, "func", 2, 2, swig_obj)) SWIG_fail; {
+      |   ^~
+test7_ext_wrap.cxx:3347:74: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 3347 |   if (!SWIG_Python_UnpackTuple(args, "func", 2, 2, swig_obj)) SWIG_fail; {
+      |                                                                          ^
+test7_ext_wrap.cxx:3349:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 3349 |     if (!array1 || !require_dimensions(array1,1) || !require_contiguous(array1) || !require_native(array1)) SWIG_fail; arg1 = 1;
+      |     ^~
+test7_ext_wrap.cxx:3349:120: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 3349 |     if (!array1 || !require_dimensions(array1,1) || !require_contiguous(array1) || !require_native(array1)) SWIG_fail; arg1 = 1;
+      |                                                                                                                        ^~~~
+test7_ext_wrap.cxx:3350:5: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+ 3350 |     for (i1=0; i1 < array_numdims(array1); ++i1) arg1 *= array_size(array1,i1); arg2 = (double*) array_data(array1); }  {
+      |     ^~~
+test7_ext_wrap.cxx:3350:81: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+ 3350 |     for (i1=0; i1 < array_numdims(array1); ++i1) arg1 *= array_size(array1,i1); arg2 = (double*) array_data(array1); }  {
+      |                                                                                 ^~~~
+test7_ext_wrap.cxx:3352:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 3352 |     if (!array3 || !require_dimensions(array3,1) || !require_contiguous(array3) || !require_native(array3)) SWIG_fail; arg3 = 1;
+      |     ^~
+test7_ext_wrap.cxx:3352:120: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 3352 |     if (!array3 || !require_dimensions(array3,1) || !require_contiguous(array3) || !require_native(array3)) SWIG_fail; arg3 = 1;
+      |                                                                                                                        ^~~~
+test7_ext_wrap.cxx:3353:5: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+ 3353 |     for (i3=0; i3 < array_numdims(array3); ++i3) arg3 *= array_size(array3,i3); arg4 = (double*) array_data(array3); }
+      |     ^~~
+test7_ext_wrap.cxx:3353:81: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+ 3353 |     for (i3=0; i3 < array_numdims(array3); ++i3) arg3 *= array_size(array3,i3); arg4 = (double*) array_data(array3); }
+      |                                                                                 ^~~~
+/usr/local/lib/python3.10/dist-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        This deprecation is overdue, please update your project and remove deprecated
+        calls to avoid build errors in the future.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()

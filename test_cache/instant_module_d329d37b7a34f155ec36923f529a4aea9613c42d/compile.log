@@ -1,0 +1,27 @@
+instant_module_d329d37b7a34f155ec36923f529a4aea9613c42d_wrap.cxx: In function ‘PyObject* _wrap_new_Sum(PyObject*, PyObject*)’:
+instant_module_d329d37b7a34f155ec36923f529a4aea9613c42d_wrap.cxx:2882:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 2882 |   if (!SWIG_Python_UnpackTuple(args, "new_Sum", 0, 0, 0)) SWIG_fail; result = (Sum *)new Sum();
+      |   ^~
+instant_module_d329d37b7a34f155ec36923f529a4aea9613c42d_wrap.cxx:2882:70: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 2882 |   if (!SWIG_Python_UnpackTuple(args, "new_Sum", 0, 0, 0)) SWIG_fail; result = (Sum *)new Sum();
+      |                                                                      ^~~~~~
+instant_module_d329d37b7a34f155ec36923f529a4aea9613c42d_wrap.cxx: In function ‘PyObject* _wrap_delete_Sum(PyObject*, PyObject*)’:
+instant_module_d329d37b7a34f155ec36923f529a4aea9613c42d_wrap.cxx:2889:44: warning: deleting object of polymorphic class type ‘Sum’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+ 2889 |   arg1 = reinterpret_cast< Sum * >(argp1); delete arg1; resultobj = SWIG_Py_Void(); return resultobj; fail: return NULL; }
+      |                                            ^~~~~~~~~~~
+/usr/local/lib/python3.10/dist-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        This deprecation is overdue, please update your project and remove deprecated
+        calls to avoid build errors in the future.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()

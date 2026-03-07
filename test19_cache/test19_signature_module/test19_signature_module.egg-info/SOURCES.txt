@@ -1,0 +1,6 @@
+setup.py
+test19_signature_module_wrap.cxx
+test19_signature_module.egg-info/PKG-INFO
+test19_signature_module.egg-info/SOURCES.txt
+test19_signature_module.egg-info/dependency_links.txt
+test19_signature_module.egg-info/top_level.txt

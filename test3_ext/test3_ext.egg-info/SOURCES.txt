@@ -1,0 +1,6 @@
+setup.py
+test3_ext_wrap.cxx
+test3_ext.egg-info/PKG-INFO
+test3_ext.egg-info/SOURCES.txt
+test3_ext.egg-info/dependency_links.txt
+test3_ext.egg-info/top_level.txt

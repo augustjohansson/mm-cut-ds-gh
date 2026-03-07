@@ -1,0 +1,30 @@
+In file included from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/ndarraytypes.h:1929,
+                 from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/arrayobject.h:5,
+                 from instant_module_6f026a2a2afcc369265e25940929aa87c987ec80_wrap.cxx:2800:
+/usr/local/lib/python3.10/dist-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+   17 | #warning "Using deprecated NumPy API, disable it with " \
+      |  ^~~~~~~
+instant_module_6f026a2a2afcc369265e25940929aa87c987ec80_wrap.cxx: In function ‘PyObject* _wrap_sum(PyObject*, PyObject*)’:
+instant_module_6f026a2a2afcc369265e25940929aa87c987ec80_wrap.cxx:3349:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 3349 |   if (!SWIG_Python_UnpackTuple(args, "sum", 2, 2, swig_obj)) SWIG_fail; {
+      |   ^~
+instant_module_6f026a2a2afcc369265e25940929aa87c987ec80_wrap.cxx:3349:73: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 3349 |   if (!SWIG_Python_UnpackTuple(args, "sum", 2, 2, swig_obj)) SWIG_fail; {
+      |                                                                         ^
+/usr/local/lib/python3.10/dist-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        This deprecation is overdue, please update your project and remove deprecated
+        calls to avoid build errors in the future.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
