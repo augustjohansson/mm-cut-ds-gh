@@ -1,0 +1,16 @@
+# -*- mode: python -*-
+
+from ufl_legacy import *
+
+element = FiniteElement("Lagrange", triangle, 1)
+n = FacetNormal(triangle)
+
+c = Coefficient(element)
+
+M = c*ds
+M = c*dC
+M = c*dI
+M = c*dsC
+M = c*dsX
+M = c*dot(n,n)*dsX
+M = c*dX
