@@ -1,2 +1,0 @@
-from __future__ import absolute_import
-from .instant_module_c8f5082a9ad423ac210e93ee8efc159469285f2b import *

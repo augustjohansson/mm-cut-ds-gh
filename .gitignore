@@ -1,0 +1,6 @@
+# Test cache directories created by instant/dijitso when running tests locally
+test*_cache/
+test*_ext/
+__pycache__/
+*.pyc
+*.pyo

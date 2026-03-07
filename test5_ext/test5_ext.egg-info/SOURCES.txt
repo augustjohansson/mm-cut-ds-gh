@@ -1,6 +1,0 @@
-setup.py
-test5_ext_wrap.cxx
-test5_ext.egg-info/PKG-INFO
-test5_ext.egg-info/SOURCES.txt
-test5_ext.egg-info/dependency_links.txt
-test5_ext.egg-info/top_level.txt

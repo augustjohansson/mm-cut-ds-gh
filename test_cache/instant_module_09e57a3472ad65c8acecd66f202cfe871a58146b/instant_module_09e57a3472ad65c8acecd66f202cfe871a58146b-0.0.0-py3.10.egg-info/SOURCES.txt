@@ -1,6 +1,0 @@
-instant_module_09e57a3472ad65c8acecd66f202cfe871a58146b_wrap.cxx
-setup.py
-instant_module_09e57a3472ad65c8acecd66f202cfe871a58146b.egg-info/PKG-INFO
-instant_module_09e57a3472ad65c8acecd66f202cfe871a58146b.egg-info/SOURCES.txt
-instant_module_09e57a3472ad65c8acecd66f202cfe871a58146b.egg-info/dependency_links.txt
-instant_module_09e57a3472ad65c8acecd66f202cfe871a58146b.egg-info/top_level.txt

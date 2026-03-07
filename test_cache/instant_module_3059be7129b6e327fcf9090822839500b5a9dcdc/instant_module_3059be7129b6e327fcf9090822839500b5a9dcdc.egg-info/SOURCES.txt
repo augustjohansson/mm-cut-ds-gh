@@ -1,6 +1,0 @@
-instant_module_3059be7129b6e327fcf9090822839500b5a9dcdc_wrap.cxx
-setup.py
-instant_module_3059be7129b6e327fcf9090822839500b5a9dcdc.egg-info/PKG-INFO
-instant_module_3059be7129b6e327fcf9090822839500b5a9dcdc.egg-info/SOURCES.txt
-instant_module_3059be7129b6e327fcf9090822839500b5a9dcdc.egg-info/dependency_links.txt
-instant_module_3059be7129b6e327fcf9090822839500b5a9dcdc.egg-info/top_level.txt

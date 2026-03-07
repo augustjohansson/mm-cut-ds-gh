@@ -1,6 +1,0 @@
-instant_module_aa70726a5583758eec36c1904e478800ac5f4597_wrap.cxx
-setup.py
-instant_module_aa70726a5583758eec36c1904e478800ac5f4597.egg-info/PKG-INFO
-instant_module_aa70726a5583758eec36c1904e478800ac5f4597.egg-info/SOURCES.txt
-instant_module_aa70726a5583758eec36c1904e478800ac5f4597.egg-info/dependency_links.txt
-instant_module_aa70726a5583758eec36c1904e478800ac5f4597.egg-info/top_level.txt

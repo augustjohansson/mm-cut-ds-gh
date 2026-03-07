@@ -1,6 +1,0 @@
-instant_module_6f026a2a2afcc369265e25940929aa87c987ec80_wrap.cxx
-setup.py
-instant_module_6f026a2a2afcc369265e25940929aa87c987ec80.egg-info/PKG-INFO
-instant_module_6f026a2a2afcc369265e25940929aa87c987ec80.egg-info/SOURCES.txt
-instant_module_6f026a2a2afcc369265e25940929aa87c987ec80.egg-info/dependency_links.txt
-instant_module_6f026a2a2afcc369265e25940929aa87c987ec80.egg-info/top_level.txt
