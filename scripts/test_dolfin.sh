@@ -96,6 +96,26 @@ else
     skip "dolfin Python meshview test not found: $DOLFIN_PY_MESH_TEST"
 fi
 
+section "dolfin Python unit tests  –  geometry"
+
+DOLFIN_PY_GEO_TEST="$DOLFIN_SRC_DIR/python/test/unit/geometry"
+if [ -d "$DOLFIN_PY_GEO_TEST" ]; then
+    run_check "dolfin Python: geometry tests" \
+        python3 -m pytest "$DOLFIN_PY_GEO_TEST" -v --tb=short
+else
+    skip "dolfin Python geometry tests not found: $DOLFIN_PY_GEO_TEST"
+fi
+
+section "dolfin Python unit tests  –  multimesh"
+
+DOLFIN_PY_MM_TEST="$DOLFIN_SRC_DIR/python/test/unit/multimesh"
+if [ -d "$DOLFIN_PY_MM_TEST" ]; then
+    run_check "dolfin Python: multimesh tests" \
+        python3 -m pytest "$DOLFIN_PY_MM_TEST" -v --tb=short
+else
+    skip "dolfin Python multimesh tests not found: $DOLFIN_PY_MM_TEST"
+fi
+
 section "dolfin C++ demos  –  multimesh + geometry"
 
 DEMO_BASE="$DOLFIN_BUILD_DIR/demo"
