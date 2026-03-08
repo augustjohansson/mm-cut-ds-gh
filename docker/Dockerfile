@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --no-cache-dir -U pip setuptools wheel
-RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11
+RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11 mpi4py pkgconfig
 
 WORKDIR /opt/src
 
@@ -87,6 +87,10 @@ RUN cd /opt/src/dolfin-cut-ds && git pull && \
     ninja -j"$(nproc)" && \
     ninja install && \
     ldconfig
+
+# ── Build/install dolfin Python bindings ─────────────────────────────────────
+RUN cd /opt/src/dolfin-cut-ds/python && \
+    python3 -m pip install --no-cache-dir --no-deps .
 
 # # ----- Build/install mshr -----
 # RUN mkdir -p /opt/build/mshr && cd /opt/build/mshr && \
