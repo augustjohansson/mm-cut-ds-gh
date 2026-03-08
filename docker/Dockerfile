@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --no-cache-dir -U pip setuptools wheel
-RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11 mpi4py pkgconfig
+RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11 mpi4py pkgconfig decorator
 
 WORKDIR /opt/src
 
@@ -89,8 +89,14 @@ RUN cd /opt/src/dolfin-cut-ds && git pull && \
     ldconfig
 
 # ── Build/install dolfin Python bindings ─────────────────────────────────────
+# python/CMakeLists.txt uses execute_process to get the pybind11 cmake dir, but
+# the result includes a trailing newline that breaks CMAKE_PREFIX_PATH.  Setting
+# PYBIND11_DIR explicitly (with end='' to strip the newline) makes cmake pick it
+# up via $ENV{PYBIND11_DIR} in the find_package(pybind11) HINTS, bypassing the
+# broken path.  --no-build-isolation lets pip use the already-installed pybind11.
 RUN cd /opt/src/dolfin-cut-ds/python && \
-    python3 -m pip install --no-cache-dir --no-deps .
+    PYBIND11_DIR=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir(), end='')") \
+    python3 -m pip install --no-cache-dir --no-deps --no-build-isolation .
 
 # # ----- Build/install mshr -----
 # RUN mkdir -p /opt/build/mshr && cd /opt/build/mshr && \
