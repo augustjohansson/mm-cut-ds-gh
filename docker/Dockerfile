@@ -44,21 +44,21 @@ COPY patches/instant_test11.patch /tmp/patches/
 COPY patches/fiat_np_float.patch /tmp/patches/
 COPY patches/fiat_serendipity.patch /tmp/patches/
 
-# ── Patch instant: replace "six" dependency with Python 3 builtins ────────────
-RUN cd /opt/src/instant && \
-    sed -i 's/^from six import string_types$/string_types = str/' \
-	instant/output.py instant/paths.py instant/config.py instant/signatures.py && \
-    sed -i 's/^import six$//' instant/build.py && \
-    sed -i 's/^from six import string_types$/string_types = str/' instant/build.py
+# # ── Patch instant: replace "six" dependency with Python 3 builtins ────────────
+# RUN cd /opt/src/instant && \
+#     sed -i 's/^from six import string_types$/string_types = str/' \
+#	instant/output.py instant/paths.py instant/config.py instant/signatures.py && \
+#     sed -i 's/^import six$//' instant/build.py && \
+#     sed -i 's/^from six import string_types$/string_types = str/' instant/build.py
 
-# ── Patch instant: fix test11 source_directory for some_func.h ───────────────
-RUN cd /opt/src/instant && git apply /tmp/patches/instant_test11.patch
+# # ── Patch instant: fix test11 source_directory for some_func.h ───────────────
+# RUN cd /opt/src/instant && git apply /tmp/patches/instant_test11.patch
 
-# ── Patch fiat: replace removed np.float() with float() ──────────────────────
-RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_np_float.patch
+# # ── Patch fiat: replace removed np.float() with float() ──────────────────────
+# RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_np_float.patch
 
-# ── Patch fiat: fix serendipity.py tabulate for numpy >= 1.24 ────────────────
-RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_serendipity.patch
+# # ── Patch fiat: fix serendipity.py tabulate for numpy >= 1.24 ────────────────
+# RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_serendipity.patch
 
 # ── Install Python packages ──────────────────────────────────────────────────
 RUN cd /opt/src/dijitso && python3 -m pip install --no-cache-dir --no-deps .
