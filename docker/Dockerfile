@@ -41,6 +41,11 @@ RUN git clone --depth 1 --single-branch --branch master \
 
 RUN cd /opt/src/dijitso && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/instant && python3 -m pip install --no-cache-dir --no-deps .
+# Fix: add exterior_cut_facet to custom_integral_types so that apply_integral_scaling
+# knows how to scale it (same as other custom/runtime-quadrature integral types).
+RUN sed -i \
+    's/custom_integral_types = ("custom", "cutcell", "interface", "overlap")/custom_integral_types = ("custom", "cutcell", "interface", "overlap", "exterior_cut_facet")/' \
+    /opt/src/ufl-cut-ds/ufl_legacy/measure.py
 RUN cd /opt/src/ufl-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/fiat && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/ffc-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
