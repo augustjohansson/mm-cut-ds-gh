@@ -39,10 +39,10 @@ RUN git clone --depth 1 --single-branch --branch master \
 RUN git clone --depth 1 --single-branch --branch master \
     https://github.com/augustjohansson/mshr.git
 
-# ── Copy patch files ─────────────────────────────────────────────────────────
-COPY patches/instant_test11.patch /tmp/patches/
-COPY patches/fiat_np_float.patch /tmp/patches/
-COPY patches/fiat_serendipity.patch /tmp/patches/
+# # ── Copy patch files ─────────────────────────────────────────────────────────
+# COPY patches/instant_test11.patch /tmp/patches/
+# COPY patches/fiat_np_float.patch /tmp/patches/
+# COPY patches/fiat_serendipity.patch /tmp/patches/
 
 # # ── Patch instant: replace "six" dependency with Python 3 builtins ────────────
 # RUN cd /opt/src/instant && \
