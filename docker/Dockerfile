@@ -39,35 +39,13 @@ RUN git clone --depth 1 --single-branch --branch master \
 RUN git clone --depth 1 --single-branch --branch master \
     https://github.com/augustjohansson/mshr.git
 
-# # ── Copy patch files ─────────────────────────────────────────────────────────
-# COPY patches/instant_test11.patch /tmp/patches/
-# COPY patches/fiat_np_float.patch /tmp/patches/
-# COPY patches/fiat_serendipity.patch /tmp/patches/
-
-# # ── Patch instant: replace "six" dependency with Python 3 builtins ────────────
-# RUN cd /opt/src/instant && \
-#     sed -i 's/^from six import string_types$/string_types = str/' \
-#	instant/output.py instant/paths.py instant/config.py instant/signatures.py && \
-#     sed -i 's/^import six$//' instant/build.py && \
-#     sed -i 's/^from six import string_types$/string_types = str/' instant/build.py
-
-# # ── Patch instant: fix test11 source_directory for some_func.h ───────────────
-# RUN cd /opt/src/instant && git apply /tmp/patches/instant_test11.patch
-
-# # ── Patch fiat: replace removed np.float() with float() ──────────────────────
-# RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_np_float.patch
-
-# # ── Patch fiat: fix serendipity.py tabulate for numpy >= 1.24 ────────────────
-# RUN cd /opt/src/fiat && git apply /tmp/patches/fiat_serendipity.patch
-
-# ── Install Python packages ──────────────────────────────────────────────────
 RUN cd /opt/src/dijitso && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/instant && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/ufl-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/fiat && python3 -m pip install --no-cache-dir --no-deps .
 RUN cd /opt/src/ffc-cut-ds && python3 -m pip install --no-cache-dir --no-deps .
 
-# ── Build ffc_factory (C++ extension needed by ffc-cut-ds test_evaluate) ──────
+# Build ffc_factory (C++ extension needed by ffc-cut-ds test_evaluate)
 RUN cd /opt/src/ffc-cut-ds/libs/ffc-factory && \
     python3 setup.py build_ext --inplace && \
     cp ffc_factory*.so /usr/local/lib/python3.10/dist-packages/
@@ -88,12 +66,7 @@ RUN cd /opt/src/dolfin-cut-ds && git pull && \
     ninja install && \
     ldconfig
 
-# ── Build/install dolfin Python bindings ─────────────────────────────────────
-# python/CMakeLists.txt uses execute_process to get the pybind11 cmake dir, but
-# the result includes a trailing newline that breaks CMAKE_PREFIX_PATH.  Setting
-# PYBIND11_DIR explicitly (with end='' to strip the newline) makes cmake pick it
-# up via $ENV{PYBIND11_DIR} in the find_package(pybind11) HINTS, bypassing the
-# broken path.  --no-build-isolation lets pip use the already-installed pybind11.
+# Build/install dolfin Python bindings
 RUN cd /opt/src/dolfin-cut-ds/python && \
     PYBIND11_DIR=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir(), end='')") \
     python3 -m pip install --no-cache-dir --no-deps --no-build-isolation .
