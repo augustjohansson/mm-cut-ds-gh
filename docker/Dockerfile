@@ -17,7 +17,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libeigen3-dev \
     zlib1g-dev \
     libcgal-dev libgmp-dev libmpfr-dev \
+    freecad-python3 \
     && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONPATH=/usr/lib/freecad-python3/lib
 
 RUN python3 -m pip install --no-cache-dir -U pip setuptools wheel
 RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11 mpi4py pkgconfig decorator
