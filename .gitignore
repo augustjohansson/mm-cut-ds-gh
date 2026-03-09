@@ -4,3 +4,6 @@ test*_ext/
 __pycache__/
 *.pyc
 *.pyo
+*.h5
+*.xdmf
+tmp/*

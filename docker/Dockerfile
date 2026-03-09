@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     libcgal-dev libgmp-dev libmpfr-dev \
     freecad-python3 \
+    python3-gmsh python3-meshio python3-h5py \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONPATH=/usr/lib/freecad-python3/lib
