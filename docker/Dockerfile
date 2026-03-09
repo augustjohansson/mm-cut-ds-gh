@@ -23,7 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PYTHONPATH=/usr/lib/freecad-python3/lib
 
 RUN python3 -m pip install --no-cache-dir -U pip setuptools wheel
-RUN python3 -m pip install --no-cache-dir -U "numpy<2" "sympy==1.10.1" pytest pybind11 mpi4py pkgconfig decorator
+RUN python3 -m pip install --no-cache-dir -U "numpy<2" pytest pybind11 mpi4py pkgconfig decorator && \
+    python3 -m pip install --no-cache-dir --ignore-installed "sympy==1.10.1"
 
 WORKDIR /opt/src
 
