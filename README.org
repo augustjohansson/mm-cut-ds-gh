@@ -1,0 +1,5 @@
+* Docker
+
+docker build -t mm-cut-ds-gh -f docker/Dockerfile .
+
+docker run -it --rm -v "$(pwd)":/work -w /work mm-cut-ds-gh
