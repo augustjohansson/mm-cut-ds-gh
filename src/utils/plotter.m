@@ -1,10 +1,5 @@
 function plotter(a)
 
-    set(0, 'defaultlinelinewidth', 2)
-    set(0, 'defaulttextfontsize', 12);
-    set(0, 'defaultaxesfontsize', 12);
-    set(0, 'DefaultAxesTitleFontSizeMultiplier',1.2)
-
     aorg = a;
     a(:,1) = [];
 
