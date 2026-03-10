@@ -6,4 +6,4 @@ set(0, 'DefaultAxesTitleFontSizeMultiplier',1.2)
 addpath(genpath('~/Projects/M-files/globals'));
 addpath(genpath('src/utils'));
 
-mrst_init;
+mrst_init('MRST');
