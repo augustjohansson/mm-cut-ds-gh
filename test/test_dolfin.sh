@@ -27,7 +27,7 @@ run_check() {
 
 SRC_DIR="/opt/src"
 DOLFIN_BUILD_DIR="/opt/build/dolfin"
-DOLFIN_SRC_DIR="$SRC_DIR/dolfin-cut-ds"
+DOLFIN_SRC_DIR="$SRC_DIR/dolfin"
 
 run_demo() {
     local label="$1"
