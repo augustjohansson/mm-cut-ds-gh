@@ -1,0 +1,50 @@
+name: Run dolfin tests (geometry + multimesh)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docker/Dockerfile'
+      - 'test/**'
+      - '.github/workflows/run-tests.yml'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docker/Dockerfile'
+      - 'test/**'
+      - '.github/workflows/run-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image for testing
+        uses: docker/build-push-action@v6
+        with:
+          context: docker
+          file: docker/Dockerfile
+          load: true
+          tags: dolfin-test:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Run geometry and multimesh tests
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}/test:/repo-test:ro" \
+            dolfin-test:latest \
+            bash /repo-test/test_dolfin.sh
