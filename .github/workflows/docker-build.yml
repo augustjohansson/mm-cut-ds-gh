@@ -8,6 +8,7 @@ on:
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/docker-build.yml'
+      - 'test/test_dolfin.sh'
   pull_request:
     branches:
       - main
@@ -15,6 +16,7 @@ on:
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/docker-build.yml'
+      - 'test/test_dolfin.sh'
   workflow_dispatch:
 
 env:
