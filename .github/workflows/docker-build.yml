@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build and Test Docker Image
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/docker-build.yml'
+      - 'test/test_dolfin.sh'
   pull_request:
     branches:
       - main
@@ -15,6 +16,10 @@ on:
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/docker-build.yml'
+      - 'test/test_dolfin.sh'
+  schedule:
+    # Rebuild nightly to pick up new commits in dolfin-cut-ds
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 env:
@@ -31,6 +36,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Get dolfin-cut-ds HEAD SHA (for cache-busting)
+        id: dolfin_sha
+        run: |
+          SHA=$(git ls-remote https://github.com/augustjohansson/dolfin-cut-ds.git \
+                refs/heads/august/mergebb | cut -f1)
+          echo "sha=${SHA}" >> "$GITHUB_OUTPUT"
+          echo "dolfin-cut-ds HEAD: ${SHA}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -54,13 +67,33 @@ jobs:
             type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push Docker image
+      - name: Build Docker image (load locally for testing)
         uses: docker/build-push-action@v6
         with:
           context: docker
           file: docker/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          load: true
+          push: false
+          tags: mm-cut-ds-test:latest
+          build-args: DOLFIN_SHA=${{ steps.dolfin_sha.outputs.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Run dolfin geometry and multimesh tests
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}/test:/work/test:ro" \
+            mm-cut-ds-test:latest \
+            bash /work/test/test_dolfin.sh
+
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: docker
+          file: docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: DOLFIN_SHA=${{ steps.dolfin_sha.outputs.sha }}
+          cache-from: type=gha
