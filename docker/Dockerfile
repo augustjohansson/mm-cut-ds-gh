@@ -29,8 +29,8 @@ RUN python3 -m pip install --no-cache-dir -U "numpy<2" pytest pybind11 mpi4py pk
 
 WORKDIR /opt/src
 
-RUN git clone --depth 1 --single-branch --branch august/mergebb \
-    https://github.com/augustjohansson/dolfin-cut-ds.git
+RUN git clone --depth 1 --single-branch --branch main \
+    https://github.com/augustjohansson/dolfin-cut-ds-no-lfs.git
 RUN git clone --depth 1 --single-branch --branch august/mergebb \
     https://github.com/augustjohansson/ffc-cut-ds.git
 RUN git clone --depth 1 --single-branch --branch august/merge-legacy \
@@ -55,24 +55,25 @@ RUN cd /opt/src/ffc-cut-ds/libs/ffc-factory && \
     python3 setup.py build_ext --inplace && \
     cp ffc_factory*.so /usr/local/lib/python3.10/dist-packages/
 
-RUN cd /opt/src/dolfin-cut-ds && git pull && \
+RUN cd /opt/src/dolfin-cut-ds-no-lfs && git pull && \
     mkdir -p /opt/build/dolfin && cd /opt/build/dolfin && \
-    cmake -G Ninja /opt/src/dolfin-cut-ds \
-      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-      -DCMAKE_INSTALL_PREFIX=/usr/local \
-      -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-      -DDOLFIN_ENABLE_TESTS=ON \
-      -DDOLFIN_ENABLE_DEMO=ON \
-      -DDOLFIN_ENABLE_BENCHMARKS=OFF \
+    cmake -G Ninja /opt/src/dolfin-cut-ds-no-lfs \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+    -DDOLFIN_USE_CGAL=OFF \
+    -DDOLFIN_ENABLE_TESTS=OFF \
+    -DDOLFIN_ENABLE_DEMO=OFF \
+    -DDOLFIN_ENABLE_BENCHMARKS=OFF \
     || (echo "---- CMakeError.log ----" && cat CMakeFiles/CMakeError.log || true; \
-	echo "---- CMakeOutput.log ----" && cat CMakeFiles/CMakeOutput.log || true; \
-	exit 1) && \
+    echo "---- CMakeOutput.log ----" && cat CMakeFiles/CMakeOutput.log || true; \
+    exit 1) && \
     ninja -j"$(nproc)" && \
     ninja install && \
     ldconfig
 
 # Build/install dolfin Python bindings
-RUN cd /opt/src/dolfin-cut-ds/python && \
+RUN cd /opt/src/dolfin-cut-ds-no-lfs/python && \
     PYBIND11_DIR=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir(), end='')") \
     python3 -m pip install --no-cache-dir --no-deps --no-build-isolation .
 
