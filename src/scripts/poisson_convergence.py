@@ -605,38 +605,24 @@ def save_table():
         print(header)
         f.write(header + "\n")
         for i, level in enumerate(levels):
-            print(
+            line = (
+                "%s  %.5e  %.12e  %.12e  %.3f  %.3f"
+                "    %.5e  %.12e  %.12e  %.3f  %.3f"
+            ) % (
                 level_tag(level),
                 hs[i],
                 L2errors[i],
                 H10errors[i],
+                L2rates[i],
+                H10rates[i],
                 hm[i],
                 L2errorm[i],
                 H10errorm[i],
-                L2rates[i],
-                H10rates[i],
                 L2ratem[i],
                 H10ratem[i],
             )
-
-            # line = (
-            #     "{}  %.5e  %.12e  %.12e  %.3f  %.3f"
-            #     "           %.5e  %.12e  %.12e  %.3f  %.3f"
-            # ) % (
-            #     level_tag(level),
-            #     hs[i],
-            #     L2errors[i],
-            #     H10errors[i],
-            #     L2rates[i],
-            #     H10rates[i],
-            #     hm[i],
-            #     L2errorm[i],
-            #     H10errorm[i],
-            #     L2ratem[i],
-            #     H10ratem[i],
-            # )
-            # print(line)
-            # f.write(line + "\n")
+            print(line)
+            f.write(line + "\n")
 
     print("wrote", filename)
 
