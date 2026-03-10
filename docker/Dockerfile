@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-dev python3-pip python3-setuptools python3-wheel \
     libopenmpi-dev openmpi-bin \
     libpetsc-real-dev \
+    python3-petsc4py-real \
     libhdf5-openmpi-dev \
     libboost-all-dev \
     libeigen3-dev \
