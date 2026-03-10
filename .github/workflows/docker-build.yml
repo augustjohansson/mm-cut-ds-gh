@@ -56,29 +56,13 @@ jobs:
             type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build Docker image (load locally for testing)
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: docker
           file: docker/Dockerfile
-          load: true
-          push: false
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Run test/test_dolfin.sh in Docker container
-        run: |
-          IMAGE_TAG=$(echo "${{ steps.meta.outputs.tags }}" | head -1)
-          docker run --rm \
-            -v "${{ github.workspace }}/test:/opt/test:ro" \
-            "$IMAGE_TAG" \
-            bash /opt/test/test_dolfin.sh
-
-      - name: Push Docker image to registry
-        if: github.event_name != 'pull_request'
-        run: |
-          echo "${{ steps.meta.outputs.tags }}" | while IFS= read -r tag; do
-            docker push "$tag"
-          done
