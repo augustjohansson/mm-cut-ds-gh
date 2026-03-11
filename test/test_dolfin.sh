@@ -1,4 +1,24 @@
 #!/usr/bin/env bash
+# Run DOLFIN geometry + multimesh tests inside the container built by
+# docker/Dockerfile.
+#
+# CGAL geometry switch:
+#   The DOLFIN build flag -DDOLFIN_USE_CGAL controls which geometry backend
+#   is used for all predicates and intersection routines:
+#
+#     -DDOLFIN_USE_CGAL=OFF  (default)
+#         Uses Shewchuk exact predicates (built in, no CGAL dependency).
+#         The [cgal] C++ unit tests are compiled but produce zero test
+#         cases at run time, so they exit 0 (PASS).
+#
+#     -DDOLFIN_USE_CGAL=ON
+#         Uses CGAL EPICK predicates and CGAL intersection routines.
+#         The [cgal] C++ unit tests are compiled and run, verifying that
+#         CGAL and Shewchuk give identical results.
+#
+#   To rebuild the container with CGAL enabled change the cmake invocation
+#   in docker/Dockerfile from -DDOLFIN_USE_CGAL=OFF to -DDOLFIN_USE_CGAL=ON
+#   and rebuild the Docker image.
 set -uo pipefail
 
 PASS=0
@@ -66,11 +86,35 @@ UNITTEST_BIN="$UNITTEST_DIR/unittests"
 if [ -x "$UNITTEST_BIN" ]; then
     cd "$UNITTEST_DIR" || exit 1
 
+    # ---- Convex triangulation (testConvexTriangulation.cpp) ----
     run_check "dolfin C++: ConvexTriangulation geometry tests" \
         "$UNITTEST_BIN" "Convex triangulation test"
 
+    # ---- Intersection construction (testIntersectionConstruction.cpp) ----
     run_check "dolfin C++: IntersectionConstruction geometry tests" \
         "$UNITTEST_BIN" "Intersection construction test"
+
+    # ---- Collision predicates (testCollisionPredicates.cpp) ----
+    # Use a wildcard on the test case name prefix (Catch v1 name filtering).
+    run_check "dolfin C++: CollisionPredicates tests" \
+        "$UNITTEST_BIN" "CollisionPredicates*"
+
+    # ---- Simplex quadrature (testSimplexQuadrature.cpp) ----
+    run_check "dolfin C++: SimplexQuadrature tests" \
+        "$UNITTEST_BIN" "SimplexQuadrature*"
+
+    # ---- Quadrature compression (testSimplexQuadrature.cpp) ----
+    run_check "dolfin C++: Compression tests" \
+        "$UNITTEST_BIN" "Compression*"
+
+    # ---- CGAL comparison (testCGALComparison.cpp) ----
+    # Tests are tagged [cgal] and guarded by #ifdef DOLFIN_WITH_CGAL in the
+    # source (DOLFIN_WITH_CGAL is the compile-time define set when the CMake
+    # option DOLFIN_USE_CGAL=ON is used at build time).
+    # When CGAL is disabled no tests are compiled in, so Catch exits 0;
+    # the run_check therefore reports PASS in both cases.
+    run_check "dolfin C++: CGAL comparison tests (skipped when CGAL is off)" \
+        "$UNITTEST_BIN" "[cgal]"
 
     echo "  Note: MultiMesh C++ tests are tagged [!hide] and marked as work-in-progress."
     if "$UNITTEST_BIN" "MultiMesh" 2>&1; then
