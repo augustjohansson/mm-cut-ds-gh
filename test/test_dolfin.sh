@@ -21,6 +21,17 @@
 #   and rebuild the Docker image.
 set -uo pipefail
 
+# ── Ensure all output is unbuffered and printed immediately ──────────────────
+# Re-execute this script wrapped in stdbuf so that stdout/stderr of every
+# child process (C/C++ test binaries, pytest, etc.) are line-buffered rather
+# than block-buffered.  The guard variable prevents infinite recursion.
+if [ -z "${_UNBUF:-}" ]; then
+    export _UNBUF=1
+    exec stdbuf -oL -eL "$0" "$@"
+fi
+# Python: disable its own internal output buffering.
+export PYTHONUNBUFFERED=1
+
 PASS=0
 FAIL=0
 SKIP=0
@@ -135,7 +146,7 @@ DOLFIN_PY_MESH_TEST="$DOLFIN_SRC_DIR/test/unit/python/mesh/test_meshview.py"
 if [ -f "$DOLFIN_PY_MESH_TEST" ]; then
     export PYTHONPATH="$DOLFIN_BUILD_DIR/python:${PYTHONPATH:-}"
     run_check "dolfin Python: test_meshview" \
-        python3 -m pytest "$DOLFIN_PY_MESH_TEST" -v --tb=short
+        python3 -u -m pytest "$DOLFIN_PY_MESH_TEST" -v --tb=short
 else
     skip "dolfin Python meshview test not found: $DOLFIN_PY_MESH_TEST"
 fi
@@ -145,7 +156,7 @@ section "dolfin Python unit tests  –  geometry"
 DOLFIN_PY_GEO_TEST="$DOLFIN_SRC_DIR/python/test/unit/geometry"
 if [ -d "$DOLFIN_PY_GEO_TEST" ]; then
     run_check "dolfin Python: geometry tests" \
-        python3 -m pytest "$DOLFIN_PY_GEO_TEST" -v --tb=short
+        python3 -u -m pytest "$DOLFIN_PY_GEO_TEST" -v --tb=short
 else
     skip "dolfin Python geometry tests not found: $DOLFIN_PY_GEO_TEST"
 fi
@@ -155,7 +166,7 @@ section "dolfin Python unit tests  –  multimesh"
 DOLFIN_PY_MM_TEST="$DOLFIN_SRC_DIR/python/test/unit/multimesh"
 if [ -d "$DOLFIN_PY_MM_TEST" ]; then
     run_check "dolfin Python: multimesh tests" \
-        python3 -m pytest "$DOLFIN_PY_MM_TEST" -v --tb=short
+        python3 -u -m pytest "$DOLFIN_PY_MM_TEST" -v --tb=short
 else
     skip "dolfin Python multimesh tests not found: $DOLFIN_PY_MM_TEST"
 fi
@@ -178,7 +189,7 @@ if [ -x "$DEMO_BASE/undocumented/multimesh-3d/cpp/demo_multimesh-3d" ]; then
         "$DEMO_BASE/undocumented/multimesh-3d/cpp" \
         "demo_multimesh-3d"
 else
-    skip "demo: multimesh-3d not in standard build (not listed in demo/CMakeLists.txt)"
+    fail "demo: multimesh-3d binary not found (expected to be built)"
 fi
 
 run_demo "demo: nonmatching-interpolation (C++)" \
@@ -191,7 +202,7 @@ for mv_name in meshview-2D2D meshview-3D1D meshview-3D2D meshview-3D3D; do
             "$DEMO_BASE/undocumented/$mv_name/cpp" \
             "demo_$mv_name"
     else
-        skip "demo: $mv_name not in standard build (not listed in demo/CMakeLists.txt)"
+        fail "demo: $mv_name binary not found (expected to be built)"
     fi
 done
 
